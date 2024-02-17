@@ -8,8 +8,8 @@ import { TabulatorFull as Tabulator } from 'tabulator-tables'
 import './filters/pretty-bytes-filter'
 import PortalVue from 'portal-vue'
 import App from './App.vue'
-import 'typeface-roboto'
-import 'typeface-source-code-pro'
+import '@fontsource-variable/inter';
+import '@fontsource-variable/source-code-pro';
 import './assets/styles/app.scss'
 import $ from 'jquery'
 

@@ -19,6 +19,7 @@
         <div
           class="list saved-connection-list expand"
           ref="pinnedConnectionList"
+          style='display: none !important;'
         >
           <div class="list-group">
             <div class="list-heading">
@@ -168,12 +169,13 @@
           </div>
         </div>
 
-        <hr> <!-- Fake gutter for split.js -->
+        <hr style='display: none !important;'> <!-- Fake gutter for split.js -->
 
         <!-- Recent Connections -->
         <div
           class="list recent-connection-list expand"
           ref="recentConnectionList"
+          style='display: none !important;'
         >
           <div class="list-group">
             <div class="list-heading">

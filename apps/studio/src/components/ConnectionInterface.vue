@@ -1,8 +1,6 @@
 <template>
   <div class="interface connection-interface">
-    <div
-      class="interface-wrap row"
-    >
+    <div class="interface-wrap row">
       <sidebar
         class="connection-sidebar"
         ref="sidebar"
@@ -24,9 +22,35 @@
       >
         <div class="small-wrap expand">
           <div
+            v-if="!show_new_connection"
+            id="placeholder-card"
+          >
+            <div>Select Connection</div>
+            <div class="separator">or</div>
+            <a
+              href=""
+              class="btn btn-flat btn-icon btn-block"
+              @click.prevent="create"
+            >
+              <i class="material-icons">add</i>
+              Add Connection
+            </a>
+          </div>
+
+          <div
+            v-else
+            id="create-connection-card"
             class="card-flat padding"
             :class="determineLabelColor"
           >
+            <a
+              href=""
+              @click.prevent="show_new_connection = false"
+              id="create-connection-card__close"
+            >
+              <i class="material-icons close">close</i>
+            </a>
+
             <div class="flex flex-between">
               <h3
                 class="card-title"
@@ -172,6 +196,7 @@
           <div
             class="pitch"
             v-if="!config.connectionType"
+            style='display: none !important;'
           >
             🌟 <strong>Upgrade to premium</strong> for data import, multi-table export, backup & restore, Oracle support, and more.
             <a
@@ -223,15 +248,16 @@ export default Vue.extend({
   data() {
     return {
       config: new SavedConnection(),
-      errors: null,
       connectionError: null,
       errorHelp: null,
-      testing: false,
-      split: null,
-      url: null,
+      errors: null,
+      show_new_connection: false,
       importError: null,
       sidebarShown: true,
-      version: platformInfo.appVersion
+      split: null,
+      testing: false,
+      url: null,
+      version: platformInfo.appVersion,
     }
   },
   computed: {
@@ -300,15 +326,18 @@ export default Vue.extend({
         this.$refs.sidebar.$refs.sidebar,
         this.$refs.content
       ]
+      /* https://github.com/nathancahill/split/tree/master/packages/splitjs#options */
       this.split = Split(components, {
         elementStyle: (_dimension, size) => ({
           'flex-basis': `calc(${size}%)`,
         }),
-        sizes: [300, 500],
+        // sizes: [300, 500], // these are supposed to be percentages
         gutterize: 8,
         minSize: [300, 300],
         expandToMin: true,
       } as Split.Options)
+
+      this.split.collapse(0);
     })
     this.registerHandlers(this.rootBindings)
   },
@@ -332,10 +361,10 @@ export default Vue.extend({
       } else {
         this.submit()
       }
-
     },
     create() {
-      this.config = new SavedConnection()
+      this.show_new_connection = true;
+      this.config = new SavedConnection();
     },
     edit(config) {
       this.config = config
@@ -379,7 +408,6 @@ export default Vue.extend({
       await this.submit()
     },
     async testConnection() {
-
       try {
         this.testing = true
         this.connectionError = null
@@ -420,4 +448,44 @@ export default Vue.extend({
 })
 </script>
 
-<style></style>
+<style lang='scss' scoped>
+#placeholder-card {
+  align-items: center;
+  color: #808080;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  gap: 1rem;
+  justify-content: center;
+
+  .btn {
+    width: 200px;
+    color: #808080;
+  }
+}
+
+#create-connection-card {
+  overflow: visible;
+
+  #create-connection-card__close {
+    display: flex;
+    margin: 0;
+    padding: 0;
+    position: absolute;
+    right: -16px;
+    top: -16px;
+
+    .close {
+      color: #5a5a5a;
+      font-size: 16px;
+      font-weight: bold;
+      margin: 0;
+      padding: 0;
+
+      &:hover {
+        color: #808080;
+      }
+    }
+  }
+}
+</style>

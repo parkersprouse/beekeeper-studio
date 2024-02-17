@@ -2,6 +2,7 @@
   <div
     class="flex-col expand"
     ref="wrapper"
+    style="z-index: 900;"
   >
     <!-- Filter -->
     <div class="fixed">
@@ -329,12 +330,13 @@
       document.addEventListener('mousedown', this.maybeUnselect)
       const components = [this.$refs.pinned, this.$refs.tables]
       this.split = Split(components, {
-        elementStyle: (dimension, size) => ({
+        elementStyle: (_dimension, size) => ({
             'flex-basis': `calc(${size}%)`,
         }),
         direction: 'vertical',
         sizes: this.sizes,
       })
+      this.split.collapse(0);
       this.registerHandlers(this.rootBindings)
     },
     beforeDestroy() {

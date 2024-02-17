@@ -319,7 +319,8 @@ $button-height:     $statusbar-height * 0.72;
       --trigger-effect: none;
     }
     x-menu {
-      width: 220px;
+      // width: 220px;
+      width: 286px;
     }
     .badge {
       font-size: 100%;

@@ -37,6 +37,7 @@
         @click.prevent="showUpgradeModal"
         class="btn btn-brand btn-icon btn-upgrade"
         v-tooltip="'Upgrade for: backup/restore, import from CSV, larger query results, and more!'"
+        style='display: none !important;'
       >
         <i class="material-icons">stars</i> Upgrade
       </a>
@@ -709,7 +710,7 @@ export default Vue.extend({
         counter.textContent = `${i + 1}`
 
         try {
-          // TODO (azmi): this process can take longer by accident. Consider 
+          // TODO (azmi): this process can take longer by accident. Consider
           // an ability to cancel reading file.
           const text = readFileSync(file.path, { encoding: 'utf8', flag: 'r' })
           if (text) {
@@ -812,7 +813,7 @@ export default Vue.extend({
       await this.setActiveTab(tab)
 
     },
-      handleAltNumberKeyPress(event) {
+    handleAltNumberKeyPress(event) {
       if (event.altKey) {
         const pressedNumber = Number(event.key); // Convert keyCode to the corresponding number
         if(pressedNumber <= this.tabItems.length) {
@@ -919,9 +920,9 @@ export default Vue.extend({
 
   async mounted() {
     await this.$store.dispatch('tabs/load')
-    if (!this.tabItems?.length) {
-      this.createQuery()
-    }
+    // if (!this.tabItems?.length) {
+    //   this.createQuery()
+    // }
     this.registerHandlers(this.rootBindings)
   }
 })

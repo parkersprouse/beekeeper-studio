@@ -93,6 +93,7 @@
       initializing() {
         if (this.initializing) return;
         this.$nextTick(() => {
+          /* https://github.com/nathancahill/split/tree/master/packages/splitjs#options */
           this.split = Split(this.splitElements, {
             elementStyle: (_dimension, size) => ({
                 'flex-basis': `calc(${size}%)`,
@@ -102,6 +103,8 @@
             expandToMin: true,
             gutterSize: 5,
           })
+
+          this.split.collapse(0);
         })
       }
     },

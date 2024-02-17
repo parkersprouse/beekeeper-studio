@@ -42,6 +42,7 @@
     // max-height: -webkit-fill-available;
   }
   .card-flat {
+    position: relative;
     background: $theme-bg;
     margin: $gutter-w 0;
     &[class*="connection-label-color"] {
@@ -186,7 +187,7 @@
   display: inline-block;
 }
 .password-icon {
-  position: absolute; 
+  position: absolute;
   right: 12px;
   bottom: 5px;
 }

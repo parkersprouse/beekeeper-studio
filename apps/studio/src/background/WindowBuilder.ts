@@ -39,7 +39,7 @@ class BeekeeperWindow {
       titleBarStyle = 'hidden'
     }
 
-      log.info('constructing the window')
+    log.info('constructing the window')
     this.win = new BrowserWindow({
       width: 1200,
       height: 800,
@@ -53,8 +53,11 @@ class BeekeeperWindow {
         contextIsolation: false,
         spellcheck: false
       },
-      icon: getIcon()
-    })
+      icon: getIcon(),
+      show: false,
+    });
+    this.win.maximize();
+    this.win.show();
 
     const runningInWebpack = !!process.env.WEBPACK_DEV_SERVER_URL
     let appUrl = process.env.WEBPACK_DEV_SERVER_URL || 'app://./index.html'

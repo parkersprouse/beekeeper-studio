@@ -8,8 +8,8 @@
   </div>
 </template>
 
-<script>
+<!-- <script>
   export default {
 
   }
-</script>
+</script> -->

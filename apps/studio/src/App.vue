@@ -5,13 +5,11 @@
       <template v-if="storeInitialized">
         <connection-interface v-if="!connection" />
         <core-interface
-          @databaseSelected="databaseSelected"
           v-else
           :connection="connection"
         />
         <auto-updater />
         <state-manager />
-        <notification-manager />
         <upgrade-required-modal />
       </template>
     </div>
@@ -40,7 +38,6 @@ import AutoUpdater from './components/AutoUpdater.vue'
 import StateManager from './components/quicksearch/StateManager.vue'
 import DataManager from './components/data/DataManager.vue'
 import querystring from 'query-string'
-import NotificationManager from './components/NotificationManager.vue'
 import UpgradeRequiredModal from './components/common/UpgradeRequiredModal.vue'
 import ConfirmationModal from '@/components/common/modals/ConfirmationModal.vue'
 import Dropzone from '@/components/Dropzone.vue'
@@ -48,8 +45,8 @@ import Dropzone from '@/components/Dropzone.vue'
 export default Vue.extend({
   name: 'App',
   components: {
-    CoreInterface, ConnectionInterface, Titlebar, AutoUpdater, NotificationManager,
-    StateManager, DataManager, UpgradeRequiredModal, ConfirmationModal, Dropzone,
+    CoreInterface, ConnectionInterface, Titlebar, AutoUpdater, StateManager,
+    DataManager, UpgradeRequiredModal, ConfirmationModal, Dropzone,
   },
   data() {
     return {
@@ -102,11 +99,11 @@ export default Vue.extend({
 
 
   },
-  methods: {
-    databaseSelected(_db) {
-      // TODO: do something here if needed
-    },
-  }
+  // methods: {
+  //   databaseSelected(_db) {
+  //     // TODO: do something here if needed
+  //   },
+  // }
 })
 </script>
 

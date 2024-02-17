@@ -784,9 +784,13 @@ input[type=file] {
   width: 100%;
   border: 0;
   --vs-controls-color: #{$input-highlight};
+  --vs-dropdown-box-shadow: none;
   --vs-border-color: #{$border-color};
+  --vs-border-radius: 4px;
+  --vs-border-style: solid;
+  --vs-border-width: 1px;
 
-  --vs-dropdown-bg: #{$theme-bg};
+  --vs-dropdown-bg: #2a2a2a;// #{$theme-bg};
   --vs-dropdown-color: #{$text};
   --vs-dropdown-option-color: #{$text};
 
@@ -795,17 +799,34 @@ input[type=file] {
 
   --vs-search-input-color: #{$text};
 
+  --vs-dropdown-option-padding: 5px 20px;
+
   --vs-dropdown-option--active-bg: #{$input-highlight};
   --vs-dropdown-option--active-color: #{$theme-base};
 
-  .vs__clear{
+  .vs__clear {
     display: none;
   }
-  .vs__dropdown-toggle{
+
+  .vs__dropdown-toggle {
     border: unset;
     padding: 0;
     background: unset;
   }
+
+  .vs__dropdown-menu {
+    padding: 0;
+
+    border-color: var(--vs-border-color);
+    border-radius: var(--vs-border-radius);
+    border-style: var(--vs-border-style);
+    border-width: var(--vs-border-width);
+
+    li:not(:last-of-type) {
+      border-bottom: 1px solid var(--vs-border-color);
+    }
+  }
+
   .vs__selected {
     position: absolute;
     top: 2px;
@@ -815,9 +836,11 @@ input[type=file] {
     max-width: 100%;
     overflow: hidden;
   }
+
   .vs__actions {
     padding: 0
   }
+
   input {
     border: unset;
   }

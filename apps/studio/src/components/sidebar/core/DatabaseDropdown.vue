@@ -1,5 +1,8 @@
 <template>
-  <div class="fixed">
+  <div
+    class="fixed"
+    style="z-index: 1000;"
+  >
     <div class="data-select-wrap">
       <p
         v-if="this.connection.connectionType === 'sqlite'"
