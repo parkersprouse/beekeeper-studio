@@ -104,7 +104,8 @@ export default Vue.extend({
         pinned: false,
       };
 
-      this.schemaTables.forEach((schema: any) => {
+      // this.schemaTables.forEach((schema: any) => {});
+      for (const schema of this.schemaTables) {
         let parent: BaseItem;
 
         if (noFolder) {
@@ -130,7 +131,10 @@ export default Vue.extend({
           parent = schemaItem;
         }
 
-        schema.tables.forEach((table: TableOrView) => {
+        // schema.tables.forEach((table: TableOrView) => {});
+        for (const u_table of schema.tables) {
+          const table: TableOrView = u_table as TableOrView;
+
           const key = entityId(schema.schema, table);
           items.push({
             type: "table",
@@ -147,9 +151,12 @@ export default Vue.extend({
             pinned: this.pins.find((pin: PinnedEntity) => pin.entity === table),
             loadingColumns: false,
           });
-        });
+        }
 
-        schema.routines.forEach((routine: Routine) => {
+        // schema.routines.forEach((routine: Routine) => {});
+        for (const u_routine of schema.routines) {
+          const routine: Routine = u_routine as Routine;
+
           const key = entityId(schema.schema, routine);
           items.push({
             entity: routine,
@@ -167,10 +174,16 @@ export default Vue.extend({
               (pin: PinnedEntity) => pin.entity === routine
             ),
           });
-        });
-      });
+        }
+      }
 
       this.items = items;
+      this.items.sort((a: Item, b: Item) => {
+        const first: string = (typeof a === "string") ? a : (a.entity as null | TableOrView | Routine)?.name ?? "";
+        const second: string = (typeof b === "string") ? b : (b.entity as null | TableOrView | Routine)?.name ?? "";
+        return first.toLocaleLowerCase().localeCompare(second.toLocaleLowerCase());
+      });
+
       this.generated = true;
     },
     generateDisplayItems() {
@@ -251,9 +264,10 @@ export default Vue.extend({
       if (typeof expand === "undefined") {
         expand = false;
       }
-      this.items.forEach((item: Item) => {
-        item.expanded = expand;
-      });
+      // this.items.forEach((item: Item) => {});
+      for (const item of this.items) {
+        (item as Item).expanded = expand;
+      }
       this.generateDisplayItems();
       if (expand) {
         this.$nextTick(() => {
